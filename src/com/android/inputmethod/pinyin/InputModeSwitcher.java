@@ -93,6 +93,12 @@ public class InputModeSwitcher {
     private static final int MASK_SKB_LAYOUT_PHONE = 0x50000000;
 
     /**
+     * A kind of soft keyboard layout. An input mode should be anded with
+     * {@link #MASK_SKB_LAYOUT} to get its soft keyboard layout.
+     */
+    private static final int MASK_SKB_LAYOUT_DVORAK = 0x60000000;
+
+    /**
      * Used to indicate which language the current input mode is in. If the
      * current input mode works with a none-QWERTY soft keyboard, these bits are
      * also used to get language information. For example, a Chinese symbol soft
@@ -142,6 +148,11 @@ public class InputModeSwitcher {
     public static final int MODE_SKB_CHINESE = (MASK_SKB_LAYOUT_QWERTY | MASK_LANGUAGE_CN);
 
     /**
+     * Mode for inputing Chinese with soft keyboard.
+     */
+    public static final int MODE_SKB_CHINESE_DVORAK = (MASK_SKB_LAYOUT_DVORAK | MASK_LANGUAGE_CN);
+
+    /**
      * Mode for inputing basic symbols for Chinese mode with soft keyboard.
      */
     public static final int MODE_SKB_SYMBOL1_CN = (MASK_SKB_LAYOUT_SYMBOL1 | MASK_LANGUAGE_CN);
@@ -161,6 +172,18 @@ public class InputModeSwitcher {
      * Mode for inputing English upper characters with soft keyboard.
      */
     public static final int MODE_SKB_ENGLISH_UPPER = (MASK_SKB_LAYOUT_QWERTY
+            | MASK_LANGUAGE_EN | MASK_CASE_UPPER);
+
+    /**
+     * Mode for inputing English lower characters with soft keyboard.
+     */
+    public static final int MODE_SKB_ENGLISH_DVORAK_LOWER = (MASK_SKB_LAYOUT_DVORAK
+            | MASK_LANGUAGE_EN | MASK_CASE_LOWER);
+
+    /**
+     * Mode for inputing English upper characters with soft keyboard.
+     */
+    public static final int MODE_SKB_ENGLISH_DVORAK_UPPER = (MASK_SKB_LAYOUT_DVORAK
             | MASK_LANGUAGE_EN | MASK_CASE_UPPER);
 
     /**
@@ -431,6 +454,8 @@ public class InputModeSwitcher {
             return R.xml.skb_smiley;
         case MASK_SKB_LAYOUT_PHONE:
             return R.xml.skb_phone;
+        case MASK_SKB_LAYOUT_DVORAK:
+            return R.xml.skb_dvorak;
         }
         return 0;
     }
@@ -660,7 +685,9 @@ public class InputModeSwitcher {
 
     public boolean isChineseText() {
         int skbLayout = (mInputMode & MASK_SKB_LAYOUT);
-        if (MASK_SKB_LAYOUT_QWERTY == skbLayout || 0 == skbLayout) {
+        if (MASK_SKB_LAYOUT_QWERTY == skbLayout
+                || MASK_SKB_LAYOUT_DVORAK == skbLayout
+                || 0 == skbLayout) {
             int language = (mInputMode & MASK_LANGUAGE);
             if (MASK_LANGUAGE_CN == language) return true;
         }
@@ -678,7 +705,8 @@ public class InputModeSwitcher {
 
     public boolean isChineseTextWithSkb() {
         int skbLayout = (mInputMode & MASK_SKB_LAYOUT);
-        if (MASK_SKB_LAYOUT_QWERTY == skbLayout) {
+        if (MASK_SKB_LAYOUT_QWERTY == skbLayout
+                || MASK_SKB_LAYOUT_DVORAK == skbLayout {
             int language = (mInputMode & MASK_LANGUAGE);
             if (MASK_LANGUAGE_CN == language) return true;
         }
@@ -712,7 +740,9 @@ public class InputModeSwitcher {
         mInputMode = newInputMode;
 
         int skbLayout = (mInputMode & MASK_SKB_LAYOUT);
-        if (MASK_SKB_LAYOUT_QWERTY == skbLayout || 0 == skbLayout) {
+        if (MASK_SKB_LAYOUT_QWERTY == skbLayout
+                || MASK_SKB_LAYOUT_DVORAK == skbLayout
+                || 0 == skbLayout) {
             mRecentLauageInputMode = mInputMode;
         }
 
@@ -747,7 +777,8 @@ public class InputModeSwitcher {
             if (MASK_LANGUAGE_CN == language) {
                 // Chinese and Chinese symbol are always the default states,
                 // do not add a toggling operation.
-                if (MASK_SKB_LAYOUT_QWERTY == layout) {
+                if (MASK_SKB_LAYOUT_QWERTY == layout
+                        || MASK_SKB_LAYOUT_DVORAK == layout) {
                     mToggleStates.mQwerty = true;
                     mToggleStates.mQwertyUpperCase = true;
                     if (mShortMessageField) {
@@ -756,7 +787,8 @@ public class InputModeSwitcher {
                     }
                 }
             } else if (MASK_LANGUAGE_EN == language) {
-                if (MASK_SKB_LAYOUT_QWERTY == layout) {
+                if (MASK_SKB_LAYOUT_QWERTY == layout
+                        || MASK_SKB_LAYOUT_DVORAK == layout) {
                     mToggleStates.mQwerty = true;
                     mToggleStates.mQwertyUpperCase = false;
                     states[statesNum] = mToggleStateEnLower;

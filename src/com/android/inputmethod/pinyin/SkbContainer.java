@@ -279,6 +279,11 @@ public class SkbContainer extends RelativeLayout implements OnTouchListener {
                     R.xml.skb_qwerty, screenWidth, skbHeight, mContext);
             break;
 
+        case R.xml.skb_dvorak:
+            majorSkb = skbPool.getSoftKeyboard(R.xml.skb_dvorak,
+                    R.xml.skb_dvorak, screenWidth, skbHeight, mContext);
+            break;
+
         case R.xml.skb_sym1:
             majorSkb = skbPool.getSoftKeyboard(R.xml.skb_sym1, R.xml.skb_sym1,
                     screenWidth, skbHeight, mContext);
