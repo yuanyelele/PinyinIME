@@ -237,12 +237,14 @@ public class InputModeSwitcher {
      * mode to input symbols, and we have a hardware keyboard for the current
      * situation), {@link #mRecentLauageInputMode} will be tried.
      **/
-    private int mPreviousInputMode = MODE_SKB_CHINESE;
+    private int mPreviousInputMode = MODE_SKB_CHINESE
+            | Setting.getDvorak() ? MASK_LAYOUT_DVARAK : MASK_LAYOUT_QWERTY;
 
     /**
      * Used to remember recent mode to input language.
      */
-    private int mRecentLauageInputMode = MODE_SKB_CHINESE;
+    private int mRecentLauageInputMode = MODE_SKB_CHINESE
+            | Setting.getDvorak() ? MASK_LAYOUT_DVAAOK : MASK_LAYOUT_QWERTY;
 
     /**
      * Editor information of the current edit box.
@@ -485,7 +487,7 @@ public class InputModeSwitcher {
     // Return the icon to update.
     public int switchModeForUserKey(int userKey) {
         int newInputMode = MODE_UNSET;
-	int layout = mInputMode | MASK_LAYOUT;
+	int layout = mInputMode & MASK_LAYOUT;
 	int inputMode = mInputMode & ~MASK_LAYOUT;
 
         if (USERDEF_KEYCODE_LANG_2 == userKey) {
@@ -657,6 +659,7 @@ public class InputModeSwitcher {
             break;
         }
 
+	newInputMode |= Setting.getDvorak() ? MASK_LAYOUT_DVAAOK : MASK_LAYOUT_QWERTY;
         mEditorInfo = editorInfo;
         saveInputMode(newInputMode);
         prepareToggleStates(true);
