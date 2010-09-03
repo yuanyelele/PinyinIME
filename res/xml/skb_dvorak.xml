@@ -48,6 +48,7 @@
     </key>
     <keys splitter="|" labels="P|Y|F|G|C|R|L"
       codes="44|53|34|35|31|46|40"/>
+    <key id="3"/>
   </row>
 
   <row width="10.205%p">
@@ -58,7 +59,6 @@
   <row width="10.205%p">
     <keys splitter="|" labels="Q|J|K|X|B|M|W|V|Z"
       codes="45|38|39|52|30|41|51|50|54"/>
-    <key id="3"/>
   </row>
 
   <row width="20%p" row_id="@string/toggle_row_cn">
