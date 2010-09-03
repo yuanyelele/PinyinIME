@@ -98,4 +98,13 @@ public class Settings {
         if (mPrediction == v) return;
         mPrediction = v;
     }
+
+    public static boolean getDvorak() {
+        return mDvorak;
+    }
+
+    public static void setDvorak(boolean v) {
+        if (mDvorak == v) return;
+        mDvorak = v;
+    }
 }

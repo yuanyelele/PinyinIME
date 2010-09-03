@@ -41,6 +41,7 @@ public class SettingsActivity extends PreferenceActivity implements
     private CheckBoxPreference mKeySoundPref;
     private CheckBoxPreference mVibratePref;
     private CheckBoxPreference mPredictionPref;
+    private CheckBoxPreference mDvorakPref;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class SettingsActivity extends PreferenceActivity implements
                 .findPreference(getString(R.string.setting_vibrate_key));
         mPredictionPref = (CheckBoxPreference) prefSet
                 .findPreference(getString(R.string.setting_prediction_key));
+        mDvorakPref = (CheckBoxPreference) prefSet
+                .findPreference(getString(R.string.setting_dvorak_key));
         
         prefSet.setOnPreferenceChangeListener(this);
         
@@ -84,6 +87,7 @@ public class SettingsActivity extends PreferenceActivity implements
         Settings.setKeySound(mKeySoundPref.isChecked());
         Settings.setVibrate(mVibratePref.isChecked());
         Settings.setPrediction(mPredictionPref.isChecked());
+        Settings.setDvorak(mDvorakPref.isChecked());
 
         Settings.writeBack();
     }
@@ -96,6 +100,7 @@ public class SettingsActivity extends PreferenceActivity implements
         mKeySoundPref.setChecked(Settings.getKeySound());
         mVibratePref.setChecked(Settings.getVibrate());
         mPredictionPref.setChecked(Settings.getPrediction());
+        mDvorakPref.setChecked(Settings.getDvorak());
     }
 
     public void updatePreference(PreferenceGroup parentPref, String prefKey) {
