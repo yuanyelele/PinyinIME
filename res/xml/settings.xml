@@ -37,6 +37,13 @@
       android:summaryOn="@string/setting_enabled"
       android:summaryOff="@string/setting_disabled"/>
     
+    <CheckBoxPreference 
+      android:key="@string/setting_dvorak_key" 
+      android:title="@string/setting_dvorak_title"
+      android:persistent="false"
+      android:summaryOn="@string/setting_enabled"
+      android:summaryOff="@string/setting_disabled"/>
+
     <!-- Remove following entry to unbundle Google functionality -->
     <PreferenceScreen
       android:title="@string/setting_others"
