@@ -436,7 +436,7 @@ public class InputModeSwitcher {
 
     public int getSkbLayout() {
         int layout = (mInputMode & MASK_SKB_LAYOUT);
-	boolean dvorak = (mInputMode & MASK_LAYOUT == MASK_LAYOUT_DVORAK);
+	boolean dvorak = ((mInputMode & MASK_LAYOUT) == MASK_LAYOUT_DVORAK);
 	
 	if (dvorak) {
             switch (layout) {

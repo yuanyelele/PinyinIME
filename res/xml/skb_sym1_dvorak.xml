@@ -61,7 +61,7 @@
       icon_popup="@drawable/dun_popup_icon">
       <toggle_state state_id="@string/toggle_en_sym1" label="/"/>
     </key>
-    <keys splitter="|" labels="&|*|(|)"/>
+    <keys splitter="|" labels="&amp;|*|(|)"/>
   </row>
 
   <row>
