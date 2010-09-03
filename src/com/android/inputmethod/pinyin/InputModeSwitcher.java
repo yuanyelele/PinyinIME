@@ -243,12 +243,12 @@ public class InputModeSwitcher {
      * mode to input symbols, and we have a hardware keyboard for the current
      * situation), {@link #mRecentLauageInputMode} will be tried.
      **/
-    private int mPreviousInputMode = MODE_SKB_CHINESE;
+    private int mPreviousInputMode = MODE_SKB_CHINESE_DVORAK;
 
     /**
      * Used to remember recent mode to input language.
      */
-    private int mRecentLauageInputMode = MODE_SKB_CHINESE;
+    private int mRecentLauageInputMode = MODE_SKB_CHINESE_DVORAK;
 
     /**
      * Editor information of the current edit box.
@@ -479,11 +479,11 @@ public class InputModeSwitcher {
         int newInputMode = MODE_UNSET;
 
         if (USERDEF_KEYCODE_LANG_2 == userKey) {
-            if (MODE_SKB_CHINESE == mInputMode) {
-                newInputMode = MODE_SKB_ENGLISH_LOWER;
-            } else if (MODE_SKB_ENGLISH_LOWER == mInputMode
-                    || MODE_SKB_ENGLISH_UPPER == mInputMode) {
-                newInputMode = MODE_SKB_CHINESE;
+            if (MODE_SKB_CHINESE_DVORAK == mInputMode) {
+                newInputMode = MODE_SKB_ENGLISH_DVORAK_LOWER;
+            } else if (MODE_SKB_ENGLISH_DVORAK_LOWER == mInputMode
+                    || MODE_SKB_ENGLISH_DVORAK_UPPER == mInputMode) {
+                newInputMode = MODE_SKB_CHINESE_DVORAK;
             } else if (MODE_SKB_SYMBOL1_CN == mInputMode) {
                 newInputMode = MODE_SKB_SYMBOL1_EN;
             } else if (MODE_SKB_SYMBOL1_EN == mInputMode) {
@@ -493,28 +493,28 @@ public class InputModeSwitcher {
             } else if (MODE_SKB_SYMBOL2_EN == mInputMode) {
                 newInputMode = MODE_SKB_SYMBOL2_CN;
             } else if (MODE_SKB_SMILEY == mInputMode) {
-                newInputMode = MODE_SKB_CHINESE;
+                newInputMode = MODE_SKB_CHINESE_DVORAK;
             }
         } else if (USERDEF_KEYCODE_SYM_3 == userKey) {
-            if (MODE_SKB_CHINESE == mInputMode) {
+            if (MODE_SKB_CHINESE_DVORAK == mInputMode) {
                 newInputMode = MODE_SKB_SYMBOL1_CN;
-            } else if (MODE_SKB_ENGLISH_UPPER == mInputMode
-                    || MODE_SKB_ENGLISH_LOWER == mInputMode) {
+            } else if (MODE_SKB_ENGLISH_DVORAK_UPPER == mInputMode
+                    || MODE_SKB_ENGLISH_DVORAK_LOWER == mInputMode) {
                 newInputMode = MODE_SKB_SYMBOL1_EN;
             } else if (MODE_SKB_SYMBOL1_EN == mInputMode
                     || MODE_SKB_SYMBOL2_EN == mInputMode) {
-                newInputMode = MODE_SKB_ENGLISH_LOWER;
+                newInputMode = MODE_SKB_ENGLISH_DVORAK_LOWER;
             } else if (MODE_SKB_SYMBOL1_CN == mInputMode
                     || MODE_SKB_SYMBOL2_CN == mInputMode) {
-                newInputMode = MODE_SKB_CHINESE;
+                newInputMode = MODE_SKB_CHINESE_DVORAK;
             } else if (MODE_SKB_SMILEY == mInputMode) {
                 newInputMode = MODE_SKB_SYMBOL1_CN;
             }
         } else if (USERDEF_KEYCODE_SHIFT_1 == userKey) {
-            if (MODE_SKB_ENGLISH_LOWER == mInputMode) {
-                newInputMode = MODE_SKB_ENGLISH_UPPER;
-            } else if (MODE_SKB_ENGLISH_UPPER == mInputMode) {
-                newInputMode = MODE_SKB_ENGLISH_LOWER;
+            if (MODE_SKB_ENGLISH_DVORAK_LOWER == mInputMode) {
+                newInputMode = MODE_SKB_ENGLISH_DVORAK_UPPER;
+            } else if (MODE_SKB_ENGLISH_DVORAK_UPPER == mInputMode) {
+                newInputMode = MODE_SKB_ENGLISH_DVORAK_LOWER;
             }
         } else if (USERDEF_KEYCODE_MORE_SYM_5 == userKey) {
             int sym = (MASK_SKB_LAYOUT & mInputMode);
@@ -525,10 +525,10 @@ public class InputModeSwitcher {
             }
             newInputMode = ((mInputMode & (~MASK_SKB_LAYOUT)) | sym);
         } else if (USERDEF_KEYCODE_SMILEY_6 == userKey) {
-            if (MODE_SKB_CHINESE == mInputMode) {
+            if (MODE_SKB_CHINESE_DVORAK == mInputMode) {
                 newInputMode = MODE_SKB_SMILEY;
             } else {
-                newInputMode = MODE_SKB_CHINESE;
+                newInputMode = MODE_SKB_CHINESE_DVORAK;
             }
         } else if (USERDEF_KEYCODE_PHONE_SYM_4 == userKey) {
             if (MODE_SKB_PHONE_NUM == mInputMode) {
@@ -598,7 +598,7 @@ public class InputModeSwitcher {
     public int requestInputWithSkb(EditorInfo editorInfo) {
         mShortMessageField = false;
 
-        int newInputMode = MODE_SKB_CHINESE;
+        int newInputMode = MODE_SKB_CHINESE_DVORAK;
 
         switch (editorInfo.inputType & EditorInfo.TYPE_MASK_CLASS) {
         case EditorInfo.TYPE_CLASS_NUMBER:
@@ -615,7 +615,7 @@ public class InputModeSwitcher {
                     || v == EditorInfo.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
                     || v == EditorInfo.TYPE_TEXT_VARIATION_URI) {
                 // If the application request English mode, we switch to it.
-                newInputMode = MODE_SKB_ENGLISH_LOWER;
+                newInputMode = MODE_SKB_ENGLISH_DVORAK_LOWER;
             } else {
                 if (v == EditorInfo.TYPE_TEXT_VARIATION_SHORT_MESSAGE) {
                     mShortMessageField = true;
@@ -626,9 +626,9 @@ public class InputModeSwitcher {
                 newInputMode = mInputMode;
                 if (0 == skbLayout) {
                     if ((mInputMode & MASK_LANGUAGE) == MASK_LANGUAGE_CN) {
-                        newInputMode = MODE_SKB_CHINESE;
+                        newInputMode = MODE_SKB_CHINESE_DVORAK;
                     } else {
-                        newInputMode = MODE_SKB_ENGLISH_LOWER;
+                        newInputMode = MODE_SKB_ENGLISH_DVORAK_LOWER;
                     }
                 }
             }
@@ -639,9 +639,9 @@ public class InputModeSwitcher {
             newInputMode = mInputMode;
             if (0 == skbLayout) {
                 if ((mInputMode & MASK_LANGUAGE) == MASK_LANGUAGE_CN) {
-                    newInputMode = MODE_SKB_CHINESE;
+                    newInputMode = MODE_SKB_CHINESE_DVORAK;
                 } else {
-                    newInputMode = MODE_SKB_ENGLISH_LOWER;
+                    newInputMode = MODE_SKB_ENGLISH_DVORAK_LOWER;
                 }
             }
             break;
@@ -675,12 +675,12 @@ public class InputModeSwitcher {
     }
 
     public boolean isEnglishWithSkb() {
-        return MODE_SKB_ENGLISH_LOWER == mInputMode
-                || MODE_SKB_ENGLISH_UPPER == mInputMode;
+        return MODE_SKB_ENGLISH_DVORAK_LOWER == mInputMode
+                || MODE_SKB_ENGLISH_DVORAK_UPPER == mInputMode;
     }
 
     public boolean isEnglishUpperCaseWithSkb() {
-        return MODE_SKB_ENGLISH_UPPER == mInputMode;
+        return MODE_SKB_ENGLISH_DVORAK_UPPER == mInputMode;
     }
 
     public boolean isChineseText() {
@@ -706,7 +706,7 @@ public class InputModeSwitcher {
     public boolean isChineseTextWithSkb() {
         int skbLayout = (mInputMode & MASK_SKB_LAYOUT);
         if (MASK_SKB_LAYOUT_QWERTY == skbLayout
-                || MASK_SKB_LAYOUT_DVORAK == skbLayout {
+                || MASK_SKB_LAYOUT_DVORAK == skbLayout) {
             int language = (mInputMode & MASK_LANGUAGE);
             if (MASK_LANGUAGE_CN == language) return true;
         }
