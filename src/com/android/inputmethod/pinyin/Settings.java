@@ -30,6 +30,7 @@ public class Settings {
     private static boolean mKeySound;
     private static boolean mVibrate;
     private static boolean mPrediction;
+    private static boolean mDvorak;
     
     private static Settings mInstance = null;
 
